@@ -35,6 +35,7 @@ public class Main {
                     break;
 
                 case "3":
+                    sort();
                     break;
 
                 case "4":
@@ -127,6 +128,20 @@ public class Main {
 
     }
 
+    private static void sort() {
+        System.out.println("Do you want to sort by author or title?");
+        System.out.print("1 - Author\n2 - Title \n");
+        String searchBy = scanner.next();
+        if (searchBy.equalsIgnoreCase("1"))
+            library.sortByAuthor();
+        else if (searchBy.equalsIgnoreCase("2"))
+            library.sortByName();
+        else {
+            System.out.println("Please choose what to sort by");
+            sort();
+        }
+    }
+
 
     private static void createLib() throws FileNotFoundException {
         ArrayList<Book> books = new ArrayList<>();
@@ -157,9 +172,9 @@ public class Main {
         }
         library.setBooks(books);
 
-        for (int i = 0; i < books.size(); i++) {
-            System.out.println(books.get(i).getName()+ books.get(i).getStatus());
-        }
+//        for (int i = 0; i < books.size(); i++) {
+//            System.out.println(books.get(i).getName() + books.get(i).getStatus());
+//        }
 
     }
 }

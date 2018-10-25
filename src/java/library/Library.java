@@ -36,11 +36,15 @@ public class Library {
     }
 
     public void sortByAuthor() {
-
+        insertionSort(books, false);
+        for (Book book : books)
+            printBookInfo(book, "title");
     }
 
     public void sortByName() {
-
+        insertionSort(books, true);
+        for (Book book : books)
+            printBookInfo(book, "title");
     }
 
     public ArrayList<Book> searchByAuthor(String author) {
@@ -72,7 +76,7 @@ public class Library {
         System.out.println(String.format("Author %S", book.getAuthor()));
 
         if (book.getStatus() == 1)
-            System.out.println("Status: Checked In!");
+            System.out.println("Status: Checked In!\n");
         else
             System.out.println("Status: Checked Out!\n");
 
@@ -94,8 +98,7 @@ public class Library {
                     badBooks.add(books.get(books.indexOf(book)));
                     badBook++;
                 }
-            }
-            else {
+            } else {
                 Book newBook = new Book();
                 newBook.setName(bookName);
                 badBook++;
@@ -104,7 +107,6 @@ public class Library {
         }
         return new Pair<>((badBook == 0), badBooks);
     }
-
 
 
     public Pair<Boolean, ArrayList<Book>> checkOut() {
@@ -120,8 +122,7 @@ public class Library {
                     badBooks.add(books.get(books.indexOf(book)));
                     badBook++;
                 }
-            }
-            else {
+            } else {
                 Book newBook = new Book();
                 newBook.setName(bookName);
                 newBook.setStatus(1);
@@ -134,5 +135,40 @@ public class Library {
 
     public Queue<Book> sortByPriority() {
         return new Queue<>();
+    }
+
+    private void insertionSort(ArrayList<Book> books, boolean sortByTitle) {
+        //The following insertion sort came from stack overflow: https://stackoverflow.com/questions/17432738/insertion-sort-using-string-compareto
+        Book key;
+
+        if (sortByTitle) {
+            for (int j = 1; j < books.size(); j++) { //the condition has changed
+                key = books.get(j);
+                int i = j - 1;
+                while (i >= 0) {
+                    if (key.getName().compareTo(books.get(i).getName()) > 0) {//here too
+                        break;
+                    }
+                    books.set(i + 1, books.get(i));
+                    i--;
+                }
+                books.set(i + 1, key);
+            }
+        } else {
+            for (int j = 1; j < books.size(); j++) { //the condition has changed
+                key = books.get(j);
+                int i = j - 1;
+                while (i >= 0) {
+                    if (key.getAuthor().compareTo(books.get(i).getAuthor()) > 0) {//here too
+                        break;
+                    }
+                    books.set(i + 1, books.get(i));
+                    i--;
+                }
+                books.set(i + 1, key);
+            }
+        }
+
+        this.books = books;
     }
 }
