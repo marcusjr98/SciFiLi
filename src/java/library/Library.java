@@ -39,20 +39,22 @@ public class Library {
         return new Queue<>();
     }
 
-    public void createExitFile(){
-        
+    public void createExitFile() {
+
     }
 
-    public void sortByAuthor() {
+    public void sortByAuthor(boolean print) {
         insertionSort(books, false);
-        for (Book book : books)
-            printBookInfo(book, "title");
+        if (print)
+            for (Book book : books)
+                printBookInfo(book, "title");
     }
 
-    public void sortByName() {
+    public void sortByName(boolean print) {
         insertionSort(books, true);
-        for (Book book : books)
-            printBookInfo(book, "title");
+        if (print)
+            for (Book book : books)
+                printBookInfo(book, "title");
     }
 
     public ArrayList<Book> searchByAuthor(String author) {

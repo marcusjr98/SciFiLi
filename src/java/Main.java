@@ -17,7 +17,7 @@ public class Main {
         String choice;
 
         while (!closed) {
-
+            library.sortByAuthor(false);
             System.out.println("Enter your choice: ");
             choice = scanner.nextLine();
 
@@ -133,9 +133,9 @@ public class Main {
         System.out.print("1 - Author\n2 - Title \n");
         String searchBy = scanner.next();
         if (searchBy.equalsIgnoreCase("1"))
-            library.sortByAuthor();
+            library.sortByAuthor(true);
         else if (searchBy.equalsIgnoreCase("2"))
-            library.sortByName();
+            library.sortByName(true);
         else {
             System.out.println("Please choose what to sort by");
             sort();
