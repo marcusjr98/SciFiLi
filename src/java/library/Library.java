@@ -35,6 +35,14 @@ public class Library {
         this.books = books;
     }
 
+    public Queue<Book> sortByPriority() {
+        return new Queue<>();
+    }
+
+    public void createExitFile(){
+        
+    }
+
     public void sortByAuthor() {
         insertionSort(books, false);
         for (Book book : books)
@@ -134,9 +142,6 @@ public class Library {
         return new Pair<>((badBook == 0), badBooks);
     }
 
-    public Queue<Book> sortByPriority() {
-        return new Queue<>();
-    }
 
     private void insertionSort(ArrayList<Book> books, boolean sortByTitle) {
         //The following insertion sort came from stack overflow: https://stackoverflow.com/questions/17432738/insertion-sort-using-string-compareto
