@@ -90,6 +90,7 @@ public class Library {
         ArrayList<Book> badBooks = new ArrayList<>();
         while (!checkIn.IsEmpty()) {
             String bookName = (String) checkIn.pop();
+            System.out.println(String.format("Checking in: %S", bookName));
             Book book = this.searchBytitle(bookName);
             if (book != null) {
                 if (books.get(books.indexOf(book)).getStatus() == 0)
