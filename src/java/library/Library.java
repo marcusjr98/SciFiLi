@@ -58,22 +58,22 @@ public class Library {
     }
 
     public ArrayList<Book> searchByAuthor(String author) {
-        ArrayList<Book> booksbyAuthor = new ArrayList<>();
+        ArrayList<Book> booksByAuthor = new ArrayList<>();
         for (int i = 0; i < books.size(); i++) {
             if (books.get(i).getAuthor().equals(author)) {
-                booksbyAuthor.add(books.get(i));
+                booksByAuthor.add(books.get(i));
             }
         }
-        return booksbyAuthor;
+        return booksByAuthor;
     }
 
     public Book searchBytitle(String title) {
-        for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getName().equals(title)) {
-                return books.get(i);
-            }
-        }
-        return null;
+        sortByName(false);
+        int num = binarySearch(title);
+        if (num == -1)
+            return null;
+        else
+            return books.get(num);
     }
 
     public void printBookInfo(Book book, String searchedBy) {
@@ -89,9 +89,6 @@ public class Library {
             System.out.println("Status: Checked In!\n");
         else
             System.out.println("Status: Checked Out!\n");
-
-        //Might make dynamic search with statement below
-        String method_name = Thread.currentThread().getStackTrace()[1].getMethodName();
 
     }
 
@@ -178,5 +175,27 @@ public class Library {
         }
 
         this.books = books;
+    }
+
+    private int binarySearch(String name) {
+
+        //The following binary search came from stack overflow: https://stackoverflow.com/questions/32260445/implementing-binary-search-on-an-array-of-strings
+        int low = 0;
+        int high = books.size() - 1;
+        int mid;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+            if (books.get(mid).getName().compareTo(name) < 0) {
+                low = mid + 1;
+            } else if (books.get(mid).getName().compareTo(name) > 0) {
+                high = mid - 1;
+            } else {
+                return mid;
+            }
+        }
+        // We reach here when element is not present
+        //  in array
+        return -1;
     }
 }

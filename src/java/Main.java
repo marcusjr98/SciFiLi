@@ -156,8 +156,8 @@ public class Main {
             String bookInfo = sc.nextLine();
             List<String> bookInfoList = Arrays.asList(bookInfo.split(", "));
 
-            if (bookInfoList.size() == 5) {
-                book.setName(bookInfoList.get(0) + bookInfoList.get(1));
+            if (bookInfoList.size() == 5 && bookInfoList.get(0).equals("I")) {
+                book.setName(bookInfoList.get(0) + ", " + bookInfoList.get(1));
                 book.setAuthor(bookInfoList.get(2));
                 book.setStatus(Integer.parseInt(bookInfoList.get(3)));
                 book.setImportance(Integer.parseInt(bookInfoList.get(4)));
@@ -171,10 +171,7 @@ public class Main {
             }
         }
         library.setBooks(books);
-
-//        for (int i = 0; i < books.size(); i++) {
-//            System.out.println(books.get(i).getName() + books.get(i).getStatus());
-//        }
+        
 
     }
 }
