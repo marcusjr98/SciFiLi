@@ -18,9 +18,11 @@ public class Queue<Type> extends List {
         super.InsertAfter(data);
     }
 
-    public void dequeue() {
+    public Object dequeue() {
         super.First();
+        Object temp = super.GetValue();
         super.Remove();
+        return temp;
     }
 
 
