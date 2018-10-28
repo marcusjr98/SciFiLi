@@ -1,10 +1,15 @@
 package library;
 
-import DataStructures.Queue;
+import DataStructures.PriorityQueue;
 import DataStructures.Stack;
 import javafx.util.Pair;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Library {
     private Stack<String> checkIn = new Stack<>();
@@ -35,11 +40,27 @@ public class Library {
         this.books = books;
     }
 
-    public Queue<Book> sortByPriority() {
-        return new Queue<>();
+    public PriorityQueue<Book> sortByPriority() {
+        PriorityQueue<Book> priorityQueue = new PriorityQueue<>();
+        for(Book book: books) {
+            if (book.getStatus() == 1) {
+                priorityQueue.insert(book, book.getImportance());
+            }
+        }
+
+        return priorityQueue;
     }
 
-    public void createExitFile() {
+    public void createExitFile() throws IOException {
+        File file = new File("../ClosingFile/close.txt");
+        if(file.exists())
+            file.delete();
+        if (file.createNewFile()) {
+            PrintStream out = new PrintStream(new FileOutputStream("../ClosingFile/close.txt"));
+            System.setOut(out);
+            System.out.println("Daily Output for " + new Date().toString());
+            sortByName(true);
+        }
 
     }
 
@@ -60,14 +81,14 @@ public class Library {
     public ArrayList<Book> searchByAuthor(String author) {
         ArrayList<Book> booksByAuthor = new ArrayList<>();
         for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getAuthor().equals(author)) {
+            if (books.get(i).getAuthor().equalsIgnoreCase(author)) {
                 booksByAuthor.add(books.get(i));
             }
         }
         return booksByAuthor;
     }
 
-    public Book searchBytitle(String title) {
+    public Book searchByTitle(String title) {
         sortByName(false);
         int num = binarySearch(title);
         if (num == -1)
@@ -79,11 +100,9 @@ public class Library {
     public void printBookInfo(Book book, String searchedBy) {
         if (searchedBy.equalsIgnoreCase("title"))
             System.out.println(String.format("Information on %S:", book.getName()));
-        else
-            System.out.println(String.format("Information on books by %S:", book.getAuthor()));
 
-        System.out.println(String.format("Title %S", book.getName()));
-        System.out.println(String.format("Author %S", book.getAuthor()));
+        System.out.println(String.format("Title: %S", book.getName()));
+        System.out.println(String.format("Author: %S", book.getAuthor()));
 
         if (book.getStatus() == 1)
             System.out.println("Status: Checked In!\n");
@@ -98,7 +117,7 @@ public class Library {
         while (!checkIn.IsEmpty()) {
             String bookName = (String) checkIn.pop();
             System.out.println(String.format("Checking in: %S", bookName));
-            Book book = this.searchBytitle(bookName);
+            Book book = this.searchByTitle(bookName);
             if (book != null) {
                 if (books.get(books.indexOf(book)).getStatus() == 0)
                     books.get(books.indexOf(book)).setStatus(1);
@@ -122,7 +141,7 @@ public class Library {
         ArrayList<Book> badBooks = new ArrayList<>();
         while (!checkOut.IsEmpty()) {
             String bookName = (String) checkOut.pop();
-            Book book = this.searchBytitle(bookName);
+            Book book = this.searchByTitle(bookName);
             if (book != null) {
                 if (books.get(books.indexOf(book)).getStatus() == 1)
                     books.get(books.indexOf(book)).setStatus(0);
@@ -179,6 +198,7 @@ public class Library {
 
     private int binarySearch(String name) {
 
+        //This can be changed to be done recursively
         //The following binary search came from stack overflow: https://stackoverflow.com/questions/32260445/implementing-binary-search-on-an-array-of-strings
         int low = 0;
         int high = books.size() - 1;
@@ -186,9 +206,9 @@ public class Library {
 
         while (low <= high) {
             mid = (low + high) / 2;
-            if (books.get(mid).getName().compareTo(name) < 0) {
+            if (books.get(mid).getName().compareToIgnoreCase(name) < 0) {
                 low = mid + 1;
-            } else if (books.get(mid).getName().compareTo(name) > 0) {
+            } else if (books.get(mid).getName().compareToIgnoreCase(name) > 0) {
                 high = mid - 1;
             } else {
                 return mid;
