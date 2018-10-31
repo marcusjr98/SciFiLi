@@ -40,13 +40,8 @@ public class Main {
                     break;
 
                 case "4":
-                    DataStructures.PriorityQueue<Book> priorityQueue = library.sortByPriority();
-                    while (!priorityQueue.IsEmpty()) {
-                        Book book1 = (Book) priorityQueue.removeMax();
-                        System.out.println(book1.getName());
-                    }
+                    priorityOrder();
                     break;
-
 
                 case "q":
                     closed = true;
@@ -62,6 +57,15 @@ public class Main {
             }
         }
         library.createExitFile();
+    }
+
+    private static void priorityOrder() {
+        DataStructures.PriorityQueue<Book> priorityQueue = library.sortByPriority();
+        System.out.println("Books By Their Importance: ");
+        while (!priorityQueue.IsEmpty()) {
+            Book book = (Book) priorityQueue.removeMax();
+            System.out.println(book.getName());
+        }
     }
 
     private static void checkIn() {
@@ -191,6 +195,7 @@ public class Main {
         System.out.println("\t 1 - To check in books");
         System.out.println("\t 2 - To check out books");
         System.out.println("\t 3 - To sort the books");
+        System.out.println("\t 4 - To print the books in order of importance");
         System.out.println("\t help - To print the instructions again.");
         System.out.println("\t q - To quit the application. ");
     }
