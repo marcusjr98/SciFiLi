@@ -20,16 +20,8 @@ public class Library {
         return checkIn;
     }
 
-    public void setCheckIn(Stack<String> checkIn) {
-        this.checkIn = checkIn;
-    }
-
     public Stack getCheckOut() {
         return checkOut;
-    }
-
-    public void setCheckOut(Stack<String> checkOut) {
-        this.checkOut = checkOut;
     }
 
     public ArrayList<Book> getBooks() {
@@ -42,7 +34,7 @@ public class Library {
 
     public PriorityQueue<Book> sortByPriority() {
         PriorityQueue<Book> priorityQueue = new PriorityQueue<>();
-        for(Book book: books) {
+        for (Book book : books) {
             if (book.getStatus() == 1) {
                 priorityQueue.insert(book, book.getImportance());
             }
@@ -53,7 +45,7 @@ public class Library {
 
     public void createExitFile() throws IOException {
         File file = new File("../ClosingFile/close.txt");
-        if(file.exists())
+        if (file.exists())
             file.delete();
         if (file.createNewFile()) {
             PrintStream out = new PrintStream(new FileOutputStream("../ClosingFile/close.txt"));
@@ -116,8 +108,9 @@ public class Library {
         ArrayList<Book> badBooks = new ArrayList<>();
         while (!checkIn.IsEmpty()) {
             String bookName = (String) checkIn.pop();
+            bookName = bookName.replace(" ", "");
             System.out.println(String.format("Checking in: %S", bookName));
-            Book book = this.searchByTitle(bookName);
+            Book book = searchByTitle(bookName);
             if (book != null) {
                 if (books.get(books.indexOf(book)).getStatus() == 0)
                     books.get(books.indexOf(book)).setStatus(1);
@@ -141,7 +134,9 @@ public class Library {
         ArrayList<Book> badBooks = new ArrayList<>();
         while (!checkOut.IsEmpty()) {
             String bookName = (String) checkOut.pop();
-            Book book = this.searchByTitle(bookName);
+            bookName = bookName.replace(" ", "");
+            System.out.println(String.format("Checking out: %S", bookName));
+            Book book = searchByTitle(bookName);
             if (book != null) {
                 if (books.get(books.indexOf(book)).getStatus() == 1)
                     books.get(books.indexOf(book)).setStatus(0);

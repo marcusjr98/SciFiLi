@@ -11,13 +11,13 @@ public class Main {
     private static Library library = new Library();
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void main (String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         createLib();
         boolean closed = false;
 
+        printInstructions();
         String choice;
         while (!closed) {
-            printInstructions();
             library.sortByAuthor(false);
             System.out.println("Enter your choice: ");
             choice = scanner.nextLine();
@@ -41,7 +41,7 @@ public class Main {
 
                 case "4":
                     DataStructures.PriorityQueue<Book> priorityQueue = library.sortByPriority();
-                    while(!priorityQueue.IsEmpty()){
+                    while (!priorityQueue.IsEmpty()) {
                         Book book1 = (Book) priorityQueue.removeMax();
                         System.out.println(book1.getName());
                     }
@@ -52,9 +52,9 @@ public class Main {
                     closed = true;
                     break;
 
-//                case "help":
-//                    printInstructions();
-//                    break;
+                case "help":
+                    printInstructions();
+                    break;
 
                 default:
                     System.out.println("Please enter a stated command. ");
@@ -81,7 +81,7 @@ public class Main {
                 if (book.getStatus() == 1)
                     System.out.println(book.getName() + " is already checked in ");
                 else
-                    System.out.println(book.getName() + " does not exist.");
+                    System.out.println(book.getName().toUpperCase() + " does not exist.");
         }
     }
 
@@ -102,7 +102,7 @@ public class Main {
                 if (book.getStatus() == 0)
                     System.out.println(book.getName() + " is already checked out ");
                 else
-                    System.out.println(book.getName() + " does not exist.");
+                    System.out.println(book.getName().toUpperCase() + " does not exist.");
         }
     }
 
@@ -118,7 +118,7 @@ public class Main {
             booksByAuthor = library.searchByAuthor(author);
             if (booksByAuthor.size() == 0)
                 System.out.println("No books were found by that author.\n");
-            else{
+            else {
                 System.out.println(String.format("Information on books by %S:", author));
             }
             for (Book book1 : booksByAuthor) {
@@ -158,10 +158,7 @@ public class Main {
 
     private static void createLib() throws FileNotFoundException {
         ArrayList<Book> books = new ArrayList<>();
-/*        The path to the file has to be exact when testing in Intellij but for the final
-        version it can be relative like below*/
-        //File bookList = new File("../BookList.txt");
-        File bookList = new File("C:\\Users\\marcu\\Desktop\\CSC220Data\\SciFiLi\\src\\BookList.txt");
+        File bookList = new File("../BookList.txt");
         Scanner sc = new Scanner(bookList);
 
         while (sc.hasNextLine()) {
@@ -188,7 +185,7 @@ public class Main {
 
     }
 
-    private static void printInstructions(){
+    private static void printInstructions() {
         System.out.println("\n Press ");
         System.out.println("\t 0 - To search for an author or book");
         System.out.println("\t 1 - To check in books");
