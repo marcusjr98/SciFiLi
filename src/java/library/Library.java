@@ -58,16 +58,30 @@ public class Library {
 
     public void sortByAuthor(boolean print) {
         insertionSort(books, false);
-        if (print)
-            for (Book book : books)
+        if (print) {
+            String author = null;
+            for (Book book : books) {
+                if (!book.getAuthor().equals(author)) {
+                    System.out.println(String.format("*****%S*****", book.getAuthor()));
+                    author = book.getAuthor();
+                }
                 printBookInfo(book, "title");
+            }
+        }
     }
 
     public void sortByName(boolean print) {
         insertionSort(books, true);
-        if (print)
-            for (Book book : books)
+        if (print) {
+            char letter = '\u0000';
+            for (Book book : books) {
+                if (book.getName().charAt(0) != letter) {
+                    System.out.println(String.format("*****%S*****", book.getName().charAt(0)));
+                    letter = book.getName().charAt(0);
+                }
                 printBookInfo(book, "title");
+            }
+        }
     }
 
     public ArrayList<Book> searchByAuthor(String author) {
@@ -108,7 +122,7 @@ public class Library {
         ArrayList<Book> badBooks = new ArrayList<>();
         while (!checkIn.IsEmpty()) {
             String bookName = (String) checkIn.pop();
-            System.out.println(String.format("Checking in: %S", bookName));
+            System.out.println(String.format("Checking in: %S", bookName.trim()));
             Book book = searchByTitle(bookName.trim());
             if (book != null) {
                 if (books.get(books.indexOf(book)).getStatus() == 0)
@@ -133,7 +147,7 @@ public class Library {
         ArrayList<Book> badBooks = new ArrayList<>();
         while (!checkOut.IsEmpty()) {
             String bookName = (String) checkOut.pop();
-            System.out.println(String.format("Checking out: %S", bookName));
+            System.out.println(String.format("Checking out: %S", bookName.trim()));
             Book book = searchByTitle(bookName.trim());
             if (book != null) {
                 if (books.get(books.indexOf(book)).getStatus() == 1)

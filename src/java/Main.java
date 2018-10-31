@@ -14,9 +14,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         createLib();
         boolean closed = false;
-
-        printInstructions();
         String choice;
+        printInstructions();
         while (!closed) {
             library.sortByAuthor(false);
             System.out.println("Enter your choice: ");
@@ -56,6 +55,7 @@ public class Main {
                     break;
             }
         }
+        System.out.println("***The library has closed for the day***");
         library.createExitFile();
     }
 
@@ -78,14 +78,14 @@ public class Main {
         Pair<Boolean, ArrayList<Book>> pair = library.checkIn();
         if (pair.getKey()) {
             for (String bookName : books)
-                System.out.println(String.format("%S has been checked in", bookName));
+                System.out.println(String.format("%S has been checked in", bookName.trim()));
         } else {
             System.out.println("The following books were not checked in. Please see the reasons below. All others were checked in");
             for (Book book : pair.getValue())
                 if (book.getStatus() == 1)
-                    System.out.println(book.getName() + " is already checked in ");
+                    System.out.println(book.getName().trim() + " is already checked in ");
                 else
-                    System.out.println(book.getName().toUpperCase() + " does not exist.");
+                    System.out.println(book.getName().trim() + " does not exist.");
         }
     }
 
@@ -99,14 +99,14 @@ public class Main {
         Pair<Boolean, ArrayList<Book>> pair = library.checkOut();
         if (pair.getKey()) {
             for (String bookName : books)
-                System.out.println(String.format("%S has been checked out", bookName));
+                System.out.println(String.format("%S has been checked out", bookName.trim()));
         } else {
             System.out.println("The following books were not checked out. Please see the reasons below. All others were checked out");
             for (Book book : pair.getValue())
                 if (book.getStatus() == 0)
-                    System.out.println(book.getName() + " is already checked out ");
+                    System.out.println(book.getName().trim() + " is already checked out ");
                 else
-                    System.out.println(book.getName().toUpperCase() + " does not exist.");
+                    System.out.println(book.getName().trim() + " does not exist.");
         }
     }
 
@@ -121,7 +121,7 @@ public class Main {
             String author = scanner.nextLine();
             booksByAuthor = library.searchByAuthor(author);
             if (booksByAuthor.size() == 0)
-                System.out.println("No books were found by that author.\n");
+                System.out.println(String.format("No books were found by the author: %s\n", author));
             else {
                 System.out.println(String.format("Information on books by %S:", author));
             }
@@ -196,7 +196,7 @@ public class Main {
         System.out.println("\t 2 - To check out books");
         System.out.println("\t 3 - To sort the books");
         System.out.println("\t 4 - To print the books in order of importance");
-        System.out.println("\t help - To print the instructions again.");
+        System.out.println("\t help - ***To print the instructions again***");
         System.out.println("\t q - To quit the application. ");
     }
 }
