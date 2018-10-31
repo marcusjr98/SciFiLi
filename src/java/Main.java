@@ -4,18 +4,19 @@ import library.Library;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 public class Main {
     private static Library library = new Library();
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         createLib();
         boolean closed = false;
 
+        printInstructions();
         String choice;
-
         while (!closed) {
             library.sortByAuthor(false);
             System.out.println("Enter your choice: ");
@@ -39,20 +40,31 @@ public class Main {
                     break;
 
                 case "4":
+                    priorityOrder();
                     break;
-
 
                 case "q":
                     closed = true;
                     break;
 
                 case "help":
+                    printInstructions();
                     break;
 
                 default:
                     System.out.println("Please enter a stated command. ");
                     break;
             }
+        }
+        library.createExitFile();
+    }
+
+    private static void priorityOrder() {
+        DataStructures.PriorityQueue<Book> priorityQueue = library.sortByPriority();
+        System.out.println("Books By Their Importance: ");
+        while (!priorityQueue.IsEmpty()) {
+            Book book = (Book) priorityQueue.removeMax();
+            System.out.println(book.getName());
         }
     }
 
@@ -73,7 +85,7 @@ public class Main {
                 if (book.getStatus() == 1)
                     System.out.println(book.getName() + " is already checked in ");
                 else
-                    System.out.println(book.getName() + " does not exist.");
+                    System.out.println(book.getName().toUpperCase() + " does not exist.");
         }
     }
 
@@ -94,29 +106,34 @@ public class Main {
                 if (book.getStatus() == 0)
                     System.out.println(book.getName() + " is already checked out ");
                 else
-                    System.out.println(book.getName() + " does not exist.");
+                    System.out.println(book.getName().toUpperCase() + " does not exist.");
         }
     }
 
     private static void search() {
         System.out.println("Do you want to search by author or title?");
         System.out.print("1 - Author\n2 - Title \n");
-        String searchBy = scanner.next();
+        String searchBy = scanner.nextLine();
         Book book;
         ArrayList<Book> booksByAuthor;
         if (searchBy.equalsIgnoreCase("1")) {
             System.out.println("What author would you like to search for?");
-            String author = scanner.next();
+            String author = scanner.nextLine();
             booksByAuthor = library.searchByAuthor(author);
             if (booksByAuthor.size() == 0)
                 System.out.println("No books were found by that author.\n");
+            else {
+                System.out.println(String.format("Information on books by %S:", author));
+            }
             for (Book book1 : booksByAuthor) {
                 library.printBookInfo(book1, "author");
             }
         } else if (searchBy.equalsIgnoreCase("2")) {
             System.out.println("What title would you like to search for?");
-            String title = scanner.next();
-            book = library.searchBytitle(title);
+            String title = scanner.nextLine();
+
+
+            book = library.searchByTitle(title);
             if (book != null)
                 library.printBookInfo(book, "title");
             else
@@ -145,10 +162,7 @@ public class Main {
 
     private static void createLib() throws FileNotFoundException {
         ArrayList<Book> books = new ArrayList<>();
-/*        The path to the file has to be exact when testing in Intellij but for the final
-        version it can be relative like below*/
-        //File bookList = new File("../BookList.txt");
-        File bookList = new File("C:\\Users\\marcu\\Desktop\\CSC220Data\\SciFiLi\\src\\BookList.txt");
+        File bookList = new File("../BookList.txt");
         Scanner sc = new Scanner(bookList);
 
         while (sc.hasNextLine()) {
@@ -156,25 +170,33 @@ public class Main {
             String bookInfo = sc.nextLine();
             List<String> bookInfoList = Arrays.asList(bookInfo.split(", "));
 
-            if (bookInfoList.size() == 5) {
-                book.setName(bookInfoList.get(0) + bookInfoList.get(1));
-                book.setAuthor(bookInfoList.get(2));
-                book.setStatus(Integer.parseInt(bookInfoList.get(3)));
-                book.setImportance(Integer.parseInt(bookInfoList.get(4)));
-                books.add(book);
-            } else {
+            if (bookInfoList.size() == 4) {
                 book.setName(bookInfoList.get(0));
                 book.setAuthor(bookInfoList.get(1));
                 book.setStatus(Integer.parseInt(bookInfoList.get(2)));
                 book.setImportance(Integer.parseInt(bookInfoList.get(3)));
                 books.add(book);
+            } else {
+                book.setName(bookInfoList.get(0) + ", " + bookInfoList.get(1));
+                book.setAuthor(bookInfoList.get(2));
+                book.setStatus(Integer.parseInt(bookInfoList.get(3)));
+                book.setImportance(Integer.parseInt(bookInfoList.get(4)));
+                books.add(book);
             }
         }
         library.setBooks(books);
 
-//        for (int i = 0; i < books.size(); i++) {
-//            System.out.println(books.get(i).getName() + books.get(i).getStatus());
-//        }
 
+    }
+
+    private static void printInstructions() {
+        System.out.println("\n Press ");
+        System.out.println("\t 0 - To search for an author or book");
+        System.out.println("\t 1 - To check in books");
+        System.out.println("\t 2 - To check out books");
+        System.out.println("\t 3 - To sort the books");
+        System.out.println("\t 4 - To print the books in order of importance");
+        System.out.println("\t help - To print the instructions again.");
+        System.out.println("\t q - To quit the application. ");
     }
 }
