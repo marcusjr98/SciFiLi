@@ -108,9 +108,8 @@ public class Library {
         ArrayList<Book> badBooks = new ArrayList<>();
         while (!checkIn.IsEmpty()) {
             String bookName = (String) checkIn.pop();
-            bookName = bookName.replace(" ", "");
             System.out.println(String.format("Checking in: %S", bookName));
-            Book book = searchByTitle(bookName);
+            Book book = searchByTitle(bookName.trim());
             if (book != null) {
                 if (books.get(books.indexOf(book)).getStatus() == 0)
                     books.get(books.indexOf(book)).setStatus(1);
@@ -134,9 +133,8 @@ public class Library {
         ArrayList<Book> badBooks = new ArrayList<>();
         while (!checkOut.IsEmpty()) {
             String bookName = (String) checkOut.pop();
-            bookName = bookName.replace(" ", "");
             System.out.println(String.format("Checking out: %S", bookName));
-            Book book = searchByTitle(bookName);
+            Book book = searchByTitle(bookName.trim());
             if (book != null) {
                 if (books.get(books.indexOf(book)).getStatus() == 1)
                     books.get(books.indexOf(book)).setStatus(0);
