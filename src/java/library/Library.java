@@ -151,6 +151,7 @@ public class Library {
             String bookName = (String) checkIn.pop();
             System.out.println(String.format("Checking in: %S", bookName.trim()));
             Book book = searchByTitle(bookName.trim());
+
 			
 			// if the book exists within the books arraylist
             if (book != null) {
@@ -188,7 +189,7 @@ public class Library {
             String bookName = (String) checkOut.pop();
             System.out.println(String.format("Checking out: %S", bookName.trim()));
             Book book = searchByTitle(bookName.trim());
-			
+
 			// if the book exists within the books arraylist
             if (book != null) {
 				
