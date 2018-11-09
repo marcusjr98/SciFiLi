@@ -1,7 +1,9 @@
 import javafx.util.Pair;
 import library.Book;
 import library.Library;
+import library.User;
 
+import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,57 +12,94 @@ import java.util.*;
 public class Main {
     private static Library library = new Library();
     private static Scanner scanner = new Scanner(System.in);
+    private static HashMap<String, User> hashMap = new HashMap<>();
+    private static Boolean loggedIn = false;
 
     public static void main(String[] args) throws IOException {
+
         createLib();
         boolean closed = false;
         String choice;
-        printInstructions();
+        User admin = new User();
+        admin.setAdmin(true);
+        admin.setUserName("admin");
+        admin.setPassWord("admin123");
+        hashMap.put("admin", admin);
         while (!closed) {
-            library.sortByAuthor(false);
-            System.out.println("Enter your choice: ");
-            choice = scanner.nextLine();
+            if (Library.currentUser != null) {
+                hashMap.put(Library.currentUser.getUserName(), Library.currentUser);
+            }
+            login();
+            printInstructions();
+            while (!closed && loggedIn) {
+                library.sortByAuthor(false);
+                System.out.println(String.format("Logged in as %s", Library.currentUser.getUserName()));
+                System.out.println("Enter your choice: ");
+                choice = scanner.nextLine();
+                switch (choice) {
 
-            switch (choice) {
+                    // search by author or title
+                    case "0":
+                        search();
+                        break;
 
-                // search by author or title
-                case "0":
-                    search();
-                    break;
+                    // check in books
+                    case "1":
+                        checkIn();
+                        break;
 
-                // check in books
-                case "1":
-                    checkIn();
-                    break;
+                    // check out books
+                    case "2":
+                        checkOut();
+                        break;
 
-                // check out books
-                case "2":
-                    checkOut();
-                    break;
+                    // sort by either title or author
+                    case "3":
+                        sort();
+                        break;
 
-                // sort by either title or author
-                case "3":
-                    sort();
-                    break;
+                    // print out the books in order of priority
+                    case "4":
+                        priorityOrder();
+                        break;
 
-                // print out the books in order of priority
-                case "4":
-                    priorityOrder();
-                    break;
+                    // Log out of the system
+                    case "5":
+                        loggedIn = false;
+                        System.out.println("You have been logged out");
+                        break;
 
-                // close the library
-                case "q":
-                    closed = true;
-                    break;
+                    case "6":
+                        addUser();
+                        break;
 
-                // print the instructions if the user needs help
-                case "help":
-                    printInstructions();
-                    break;
+                    case "7":
+                        if (!Library.currentUser.getCoBooks().isEmpty()) {
+                            System.out.println("You have the following books checked out");
+                            for (Book book : Library.currentUser.getCoBooks()) {
+                                System.out.println(book.getName());
+                            }
+                        } else System.out.println("You have no books checked out.");
+                        break;
 
-                default:
-                    System.out.println("Please enter a stated command. ");
-                    break;
+                    // close the library
+                    case "q":
+                        if (Library.currentUser.isAdmin()) {
+                            closed = true;
+                            break;
+                        } else
+                            System.out.println("Only admins can close the library");
+                        break;
+
+                    // print the instructions if the user needs help
+                    case "help":
+                        printInstructions();
+                        break;
+
+                    default:
+                        System.out.println("Please enter a stated command. \n");
+                        break;
+                }
             }
         }
 
@@ -81,21 +120,30 @@ public class Main {
 
     // method used to check in books
     private static void checkIn() {
-        System.out.println("What books are you checking in? (Enter titles only separated by ';')");
+        System.out.println("What books are you checking in? (Enter titles only separated by ';' or enter '*' to check in all books)");
         String booksToCI = scanner.nextLine();
         String[] books = booksToCI.split(";");
-
-        // push each book entered into the library check in stack
-        for (String book : books) {
-            if (!book.trim().isEmpty())
+        if (!booksToCI.trim().equals("*")) {
+            // push each book entered into the library check in stack
+            for (String book : books) {
                 if (!book.trim().isEmpty())
                     library.getCheckIn().push(book);
+            }
+        } else {
+            for (Book book : Library.currentUser.getCoBooks()) {
+                if (!book.getName().trim().isEmpty())
+                    library.getCheckIn().push(book.getName());
+            }
         }
 
         Pair<Boolean, ArrayList<Book>> pair = library.checkIn();
 
         // if the book is able to be checked in
         if (pair.getKey()) {
+            if (booksToCI.trim().equals("*")) {
+                System.out.println("All books checked in");
+                return;
+            }
             for (String bookName : books)
                 System.out.println(String.format("%S has been checked in", bookName.trim()));
 
@@ -109,8 +157,74 @@ public class Main {
                     System.out.println(book.getName().trim() + " is already checked in ");
 
                     // if the book entered isn't valid (aka doesn't exist)
-                else
+                else if (!Library.currentUser.getCoBooks().contains(book)) {
+                    System.out.println(String.format("You do not currently have the book %s checked out", book.getName()));
+                } else
                     System.out.println(book.getName().trim() + " does not exist.");
+
+        }
+    }
+
+
+    private static void login() {
+        System.out.println("Welcome to the MD Library! Please login");
+        System.out.print("Please enter your user name: ");
+        String userName = scanner.next();
+        User user = hashMap.get(userName);
+        Console console = System.console();
+
+        if (user == null) {
+            System.out.println("That user does not exist");
+            login();
+            return;
+        }
+
+        if (user.isAdmin()) {
+            char[] chars = console.readPassword("Please enter your password:");
+            String passWord = new String(chars);
+            String actualPassword = user.getPassWord();
+            if (actualPassword != null && actualPassword.equals(passWord)) {
+                loggedIn = true;
+                Library.currentUser = user;
+                System.out.println(String.format("Welcome %s", userName));
+            } else {
+                System.out.println("***Incorrect Password***");
+                login();
+            }
+        } else {
+            Library.currentUser = user;
+            System.out.println(String.format("Welcom %s", userName));
+            loggedIn = true;
+        }
+
+    }
+
+    private static void addUser() {
+        if (Library.currentUser.isAdmin()) {
+            String newUserName = "";
+            while (newUserName.trim().equals("")) {
+                System.out.print("Please enter the new user's username: ");
+                newUserName = scanner.next();
+            }
+
+            String choice = "";
+            while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")) {
+                System.out.println("Do you want this user to be an admin? Y or N");
+                choice = scanner.next();
+            }
+
+            User newUser = new User();
+            newUser.setUserName(newUserName);
+            if (choice.equalsIgnoreCase("y")) {
+                System.out.print("Please enter the new user's password: ");
+                String password = scanner.next();
+                newUser.setPassWord(password);
+                newUser.setAdmin(true);
+            }
+            hashMap.put(newUserName, newUser);
+            System.out.println(String.format("New user %s created", newUserName));
+        } else {
+            System.out.println("Only admins can add users");
         }
     }
 
@@ -223,7 +337,7 @@ public class Main {
     // method used to create the library object and fill it with book objects
     private static void createLib() throws FileNotFoundException {
         ArrayList<Book> books = new ArrayList<>();
-        File bookList = new File("../BookList.txt");
+        File bookList = new File("C:\\Users\\marcu\\Desktop\\CSC220Data\\SciFiLi\\src\\BookList.txt");
         Scanner sc = new Scanner(bookList);
 
         // while there is another line (another book) in the file
@@ -263,6 +377,6 @@ public class Main {
         System.out.println("\t 3 - To sort the books");
         System.out.println("\t 4 - To print the books in order of importance");
         System.out.println("\t help - ***To print the instructions again***");
-        System.out.println("\t q - To quit the application. ");
+        System.out.println("\t q - To quit the application. \n");
     }
 }
