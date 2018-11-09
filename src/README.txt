@@ -32,7 +32,19 @@ S:::::::::::::::SS      CCC::::::::::::C     I::::::::I     F::::::::FF         
 
 
 Hello and thank you for using this program.
-This program was created by Marcus Castille Jr. and Devon
+This program was created by Marcus Castille Jr. and Devon Knudsen
+
+For this project we chose to use an arrayList, priority queue and a stack.
+We chose to use an arrayList because you can easily access any index by using
+a binary search instead of having to iterate over the entire set of data every
+time. ArrayList also have a dynamic size so you can add to them without hassle.
+We chose to use the priority queue because, in case of a fire, the librarian needs
+an ordered list of book sorted by importance. This data structure seems like a no
+brainer due to its functionality being just that, ordering the objects based on its
+priority. We chose to use a stack for checking in and checking out in order to emulate
+the actual physical process of placing a pile of books in front of the librarian and
+having each book scanned individually. Popping a book off of the stack is similar to
+having the librarian scan it.
 
 In this program there are two types of users: admins, and non admins
 

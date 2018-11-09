@@ -1,6 +1,7 @@
 /******************************************
  * SciFiLi
- * Created by Marcus Castille Jr. and Devon
+ * Created by Marcus Castille Jr.
+ * and Devon Knudsen
  * CSC-220 Fall_2018 Dr. Jacques
  ****************************************/
 
@@ -27,8 +28,10 @@ public class Main {
 
         File readme = new File("../README.txt");
         Scanner readmeFile = new Scanner(readme);
-        while (readmeFile.hasNextLine())
+        while (readmeFile.hasNextLine()) {
             System.out.println(readmeFile.nextLine());
+        }
+        playSound();
 
         createLib();
         boolean closed = false;
@@ -44,7 +47,6 @@ public class Main {
             }
             login();
             printInstructions();
-            playSound();
             while (!closed && loggedIn) {
                 library.sortByAuthor(false);
                 System.out.println(String.format("\nLogged in as %s", Library.currentUser.getUserName()));
