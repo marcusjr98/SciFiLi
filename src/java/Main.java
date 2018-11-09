@@ -1,8 +1,16 @@
+/******************************************
+ * SciFiLi
+ * Created by Marcus Castille Jr. and Devon
+ * CSC-220 Fall_2018 Dr. Jacques
+ ****************************************/
+
 import javafx.util.Pair;
 import library.Book;
 import library.Library;
 import library.User;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,6 +44,7 @@ public class Main {
             }
             login();
             printInstructions();
+            playSound();
             while (!closed && loggedIn) {
                 library.sortByAuthor(false);
                 System.out.println(String.format("\nLogged in as %s", Library.currentUser.getUserName()));
@@ -96,7 +105,7 @@ public class Main {
                             System.out.println(key);
                         break;
 
-                        // close the library
+                    // close the library
                     case "q":
                         if (Library.currentUser.isAdmin()) {
                             closed = true;
@@ -394,6 +403,19 @@ public class Main {
 
         // set the library classes array of book objects equal to the array of book data just created
         library.setBooks(books);
+    }
+
+    //The following method came from a youtube tutorial located at https://www.youtube.com/watch?v=QVrxiJyLTqU
+    public static synchronized void playSound() {
+        File file = new File("../greetings_exalted.wav");
+        try {
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(file));
+            clip.start();
+            Thread.sleep(clip.getMicrosecondLength() / 1000);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     // method that prints explanations for all of the choices the user can make
