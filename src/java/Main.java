@@ -38,7 +38,7 @@ public class Main {
             printInstructions();
             while (!closed && loggedIn) {
                 library.sortByAuthor(false);
-                System.out.println(String.format("Logged in as %s", Library.currentUser.getUserName()));
+                System.out.println(String.format("\nLogged in as %s", Library.currentUser.getUserName()));
                 System.out.println("Enter your choice: ");
                 choice = scanner.nextLine();
                 switch (choice) {
@@ -78,16 +78,25 @@ public class Main {
                         addUser();
                         break;
 
+                    // Prints out all of the books that the current user has checked out
                     case "7":
                         if (!Library.currentUser.getCoBooks().isEmpty()) {
-                            System.out.println("You have the following books checked out");
+                            System.out.println("You have the following books checked out:");
                             for (Book book : Library.currentUser.getCoBooks()) {
-                                System.out.println(book.getName());
+                                System.out.println(String.format("%s by %s", book.getName(),
+                                        book.getAuthor()));
                             }
                         } else System.out.println("You have no books checked out.");
                         break;
 
-                    // close the library
+                    case "8":
+                        System.out.println("The following users exits:");
+                        System.out.println("***************************");
+                        for (String key : hashMap.keySet())
+                            System.out.println(key);
+                        break;
+
+                        // close the library
                     case "q":
                         if (Library.currentUser.isAdmin()) {
                             closed = true;
@@ -113,6 +122,74 @@ public class Main {
         library.createExitFile();
     }
 
+
+    private static void login() {
+        System.out.println("Welcome to the MD Library! Please login");
+        System.out.print("Please enter your user name: ");
+        String userName = scanner.next();
+        User user = hashMap.get(userName);
+        Console console = System.console();
+
+        if (user == null) {
+            System.out.println("That user does not exist");
+            login();
+            return;
+        }
+
+        if (user.isAdmin()) {
+            char[] chars = console.readPassword("Please enter your password:");
+            String passWord = new String(chars);
+            String actualPassword = user.getPassWord();
+            if (actualPassword != null && actualPassword.equals(passWord)) {
+                loggedIn = true;
+                Library.currentUser = user;
+                System.out.println(String.format("Welcome %s", userName));
+            } else {
+                System.out.println("***Incorrect Password***");
+                login();
+            }
+        } else {
+            Library.currentUser = user;
+            System.out.println(String.format("Welcome %s", userName));
+            loggedIn = true;
+        }
+
+    }
+
+    private static void addUser() {
+        if (Library.currentUser.isAdmin()) {
+            String newUserName = "";
+            while (newUserName.trim().equals("")) {
+                System.out.print("Please enter the new user's username: ");
+                newUserName = scanner.next();
+            }
+            if (hashMap.containsKey(newUserName)) {
+                System.out.println("That user already exists! Please choose a different user name");
+                addUser();
+                return;
+            }
+
+            String choice = "";
+            while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")) {
+                System.out.println("Do you want this user to be an admin? Y or N");
+                choice = scanner.next();
+            }
+
+            User newUser = new User();
+            newUser.setUserName(newUserName);
+            if (choice.equalsIgnoreCase("y")) {
+                System.out.print("Please enter the new user's password: ");
+                String password = scanner.next();
+                newUser.setPassWord(password);
+                newUser.setAdmin(true);
+            }
+            hashMap.put(newUserName, newUser);
+            System.out.println(String.format("New user %s created", newUserName));
+        } else {
+            System.out.println("Only admins can add users");
+        }
+    }
+
     // method used to print the books in the order of their priority
     private static void priorityOrder() {
         DataStructures.PriorityQueue<Book> priorityQueue = library.sortByPriority();
@@ -128,7 +205,7 @@ public class Main {
     private static void checkIn() {
         System.out.println("What books are you checking in? (Enter titles only separated by ';' or enter '*' to check in all books)");
         String booksToCI = scanner.nextLine();
-        if(booksToCI.trim().equals("")){
+        if (booksToCI.trim().equals("")) {
             checkIn();
             return;
         }
@@ -175,74 +252,11 @@ public class Main {
         }
     }
 
-
-    private static void login() {
-        System.out.println("Welcome to the MD Library! Please login");
-        System.out.print("Please enter your user name: ");
-        String userName = scanner.next();
-        User user = hashMap.get(userName);
-        Console console = System.console();
-
-        if (user == null) {
-            System.out.println("That user does not exist");
-            login();
-            return;
-        }
-
-        if (user.isAdmin()) {
-            char[] chars = console.readPassword("Please enter your password:");
-            String passWord = new String(chars);
-            String actualPassword = user.getPassWord();
-            if (actualPassword != null && actualPassword.equals(passWord)) {
-                loggedIn = true;
-                Library.currentUser = user;
-                System.out.println(String.format("Welcome %s", userName));
-            } else {
-                System.out.println("***Incorrect Password***");
-                login();
-            }
-        } else {
-            Library.currentUser = user;
-            System.out.println(String.format("Welcom %s", userName));
-            loggedIn = true;
-        }
-
-    }
-
-    private static void addUser() {
-        if (Library.currentUser.isAdmin()) {
-            String newUserName = "";
-            while (newUserName.trim().equals("")) {
-                System.out.print("Please enter the new user's username: ");
-                newUserName = scanner.next();
-            }
-
-            String choice = "";
-            while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")) {
-                System.out.println("Do you want this user to be an admin? Y or N");
-                choice = scanner.next();
-            }
-
-            User newUser = new User();
-            newUser.setUserName(newUserName);
-            if (choice.equalsIgnoreCase("y")) {
-                System.out.print("Please enter the new user's password: ");
-                String password = scanner.next();
-                newUser.setPassWord(password);
-                newUser.setAdmin(true);
-            }
-            hashMap.put(newUserName, newUser);
-            System.out.println(String.format("New user %s created", newUserName));
-        } else {
-            System.out.println("Only admins can add users");
-        }
-    }
-
     // method used to check out books
     private static void checkOut() {
         System.out.println("What books are you checking Out? (Enter titles only separated by ';')");
         String booksToCO = scanner.nextLine();
-        if(booksToCO.trim().equals("")){
+        if (booksToCO.trim().equals("")) {
             checkIn();
             return;
         }
@@ -393,6 +407,7 @@ public class Main {
         System.out.println("\t 5 - To log out of the program");
         System.out.println("\t 6 - To add a new user(only admins can do this)");
         System.out.println("\t 7 - To print out all books you currently have checked out");
+        System.out.println("\t 8 - To print out all the users in the system.");
         System.out.println("\t help - ***To print the instructions again***");
         System.out.println("\t q - To close the library(only admins can do this) \n");
     }
