@@ -17,6 +17,11 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+        File readme = new File("../README.txt");
+        Scanner readmeFile = new Scanner(readme);
+        while (readmeFile.hasNextLine())
+            System.out.println(readmeFile.nextLine());
+
         createLib();
         boolean closed = false;
         String choice;
@@ -66,7 +71,7 @@ public class Main {
                     // Log out of the system
                     case "5":
                         loggedIn = false;
-                        System.out.println("You have been logged out");
+                        System.out.println("You have been logged out\n");
                         break;
 
                     case "6":
@@ -112,6 +117,7 @@ public class Main {
     private static void priorityOrder() {
         DataStructures.PriorityQueue<Book> priorityQueue = library.sortByPriority();
         System.out.println("Books By Their Importance: ");
+        System.out.println("******************************");
         while (!priorityQueue.IsEmpty()) {
             Book book = (Book) priorityQueue.removeMax();
             System.out.println(book.getName());
@@ -122,6 +128,10 @@ public class Main {
     private static void checkIn() {
         System.out.println("What books are you checking in? (Enter titles only separated by ';' or enter '*' to check in all books)");
         String booksToCI = scanner.nextLine();
+        if(booksToCI.trim().equals("")){
+            checkIn();
+            return;
+        }
         String[] books = booksToCI.split(";");
         if (!booksToCI.trim().equals("*")) {
             // push each book entered into the library check in stack
@@ -232,6 +242,10 @@ public class Main {
     private static void checkOut() {
         System.out.println("What books are you checking Out? (Enter titles only separated by ';')");
         String booksToCO = scanner.nextLine();
+        if(booksToCO.trim().equals("")){
+            checkIn();
+            return;
+        }
         String[] books = booksToCO.split(";");
 
         // push each book entered into the library check out stack
@@ -337,7 +351,7 @@ public class Main {
     // method used to create the library object and fill it with book objects
     private static void createLib() throws FileNotFoundException {
         ArrayList<Book> books = new ArrayList<>();
-        File bookList = new File("C:\\Users\\marcu\\Desktop\\CSC220Data\\SciFiLi\\src\\BookList.txt");
+        File bookList = new File("../BookList.txt");
         Scanner sc = new Scanner(bookList);
 
         // while there is another line (another book) in the file
@@ -376,7 +390,10 @@ public class Main {
         System.out.println("\t 2 - To check out books");
         System.out.println("\t 3 - To sort the books");
         System.out.println("\t 4 - To print the books in order of importance");
+        System.out.println("\t 5 - To log out of the program");
+        System.out.println("\t 6 - To add a new user(only admins can do this)");
+        System.out.println("\t 7 - To print out all books you currently have checked out");
         System.out.println("\t help - ***To print the instructions again***");
-        System.out.println("\t q - To quit the application. \n");
+        System.out.println("\t q - To close the library(only admins can do this) \n");
     }
 }
