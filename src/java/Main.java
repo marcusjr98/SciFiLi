@@ -101,7 +101,7 @@ public class Main {
                         break;
 
                     case "8":
-                        System.out.println("The following users exits:");
+                        System.out.println("The following users exist:");
                         System.out.println("***************************");
                         for (String key : hashMap.keySet())
                             System.out.println(key);
@@ -254,7 +254,7 @@ public class Main {
                 if (book.getStatus() == 1)
                     System.out.println(book.getName().trim() + " is already checked in ");
 
-                    // if the book entered isn't valid (aka doesn't exist)
+                // if the book entered isn't valid (aka doesn't exist)
                 else if (!Library.currentUser.getCoBooks().contains(book)) {
                     System.out.println(String.format("You do not currently have the book %s checked out", book.getName()));
                 } else
