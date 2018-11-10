@@ -242,8 +242,10 @@ public class Main {
                 System.out.println("All books checked in");
                 return;
             }
-            for (String bookName : books)
-                System.out.println(String.format("%S has been checked in", bookName.trim()));
+            if (!pair.getValue().isEmpty())
+                for (String bookName : books) {
+                    System.out.println(String.format("%S has been checked in", bookName.trim()));
+                }
 
             // if the book is not able to be checked in
         } else {
@@ -268,7 +270,7 @@ public class Main {
         System.out.println("What books are you checking Out? (Enter titles only separated by ';')");
         String booksToCO = scanner.nextLine();
         if (booksToCO.trim().equals("")) {
-            checkIn();
+            checkOut();
             return;
         }
         String[] books = booksToCO.split(";");
