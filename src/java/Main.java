@@ -101,7 +101,7 @@ public class Main {
                         break;
 
                     case "8":
-                        System.out.println("The following users exits:");
+                        System.out.println("The following users exist:");
                         System.out.println("***************************");
                         for (String key : hashMap.keySet())
                             System.out.println(key);

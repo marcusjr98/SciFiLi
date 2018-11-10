@@ -1,0 +1,1072 @@
+   SSSSSSSSSSSSSSS         CCCCCCCCCCCCC     IIIIIIIIII     FFFFFFFFFFFFFFFFFFFFFF     IIIIIIIIII     LLLLLLLLLLL                  IIIIIIIIII
+ SS:::::::::::::::S     CCC::::::::::::C     I::::::::I     F::::::::::::::::::::F     I::::::::I     L:::::::::L                  I::::::::I
+S:::::SSSSSS::::::S   CC:::::::::::::::C     I::::::::I     F::::::::::::::::::::F     I::::::::I     L:::::::::L                  I::::::::I
+S:::::S     SSSSSSS  C:::::CCCCCCCC::::C     II::::::II     FF::::::FFFFFFFFF::::F     II::::::II     LL:::::::LL                  II::::::II
+S:::::S             C:::::C       CCCCCC       I::::I         F:::::F       FFFFFF       I::::I         L:::::L                      I::::I
+S:::::S            C:::::C                     I::::I         F:::::F                    I::::I         L:::::L                      I::::I
+ S::::SSSS         C:::::C                     I::::I         F::::::FFFFFFFFFF          I::::I         L:::::L                      I::::I
+  SS::::::SSSSS    C:::::C                     I::::I         F:::::::::::::::F          I::::I         L:::::L                      I::::I
+    SSS::::::::SS  C:::::C                     I::::I         F:::::::::::::::F          I::::I         L:::::L                      I::::I
+       SSSSSS::::S C:::::C                     I::::I         F::::::FFFFFFFFFF          I::::I         L:::::L                      I::::I
+            S:::::SC:::::C                     I::::I         F:::::F                    I::::I         L:::::L                      I::::I
+            S:::::S C:::::C       CCCCCC       I::::I         F:::::F                    I::::I         L:::::L         LLLLLL       I::::I
+SSSSSSS     S:::::S  C:::::CCCCCCCC::::C     II::::::II     FF:::::::FF                II::::::II     LL:::::::LLLLLLLLL:::::L     II::::::II
+S::::::SSSSSS:::::S   CC:::::::::::::::C     I::::::::I     F::::::::FF                I::::::::I     L::::::::::::::::::::::L     I::::::::I
+S:::::::::::::::SS      CCC::::::::::::C     I::::::::I     F::::::::FF                I::::::::I     L::::::::::::::::::::::L     I::::::::I
+ SSSSSSSSSSSSSSS           CCCCCCCCCCCCC     IIIIIIIIII     FFFFFFFFFFF                IIIIIIIIII     LLLLLLLLLLLLLLLLLLLLLLLL     IIIIIIIIII
+
+
+  _             __  __
+ | |           |  \/  |                            ___
+ | |__  _   _  | \  / | __ _ _ __ ___ _   _ ___   ( _ )
+ | '_ \| | | | | |\/| |/ _` | '__/ __| | | / __|  / _ \/\
+ | |_) | |_| | | |  | | (_| | | | (__| |_| \__ \ | (_>  <
+ |_.__/ \__, | |_|  |_|\__,_|_|  \___|\__,_|___/  \___/\/
+   _____ __/ |
+  |  __ \___/
+  | |  | | _____   _____  _ __
+  | |  | |/ _ \ \ / / _ \| '_ \
+  | |__| |  __/\ V / (_) | | | |
+  |_____/ \___| \_/ \___/|_| |_|
+
+
+Hello and thank you for using this program.
+This program was created by Marcus Castille Jr. and Devon Knudsen
+
+For this project we chose to use an arrayList, priority queue and a stack.
+We chose to use an arrayList because you can easily access any index by using
+a binary search instead of having to iterate over the entire set of data every
+time. ArrayList also have a dynamic size so you can add to them without hassle.
+We chose to use the priority queue because, in case of a fire, the librarian needs
+an ordered list of book sorted by importance. This data structure seems like a no
+brainer due to its functionality being just that, ordering the objects based on its
+priority. We chose to use a stack for checking in and checking out in order to emulate
+the actual physical process of placing a pile of books in front of the librarian and
+having each book scanned individually. Popping a book off of the stack is similar to
+having the librarian scan it.
+
+In this program there are two types of users: admins, and non admins
+
+An admin can check in any book, but cannot checkout a book that is already checked out. An admin can
+also close the library a closing file is generated when this happens. Admin can also create new users.
+
+A non admin can only check in books that they have checked out. Similar to admins they cannot check out
+books that are already checked out.
+
+You have to be logged in to use this program.
+Please type 'help' to receive directions at any time
+
+
+To test the full functionality of this program we recommend creating at least 2 new users, we will call
+them userA and userB. check out books for userA then log out and log in as userB and do the same. Then
+you may view the checked out books for userB and note the books checked out by userA do not show up. You
+can also try to check in a book that was checked out by userB and you will not be able to . You may the
+log in as userA and view the checked out books and you will notice that the books checked out by userB
+do not appear either.YOu can also try to check in a book that was checked out by userB and you will not
+be able to  After this feel free to type help and check every function freely.
+
+
+TLDR: type help and go from there!!!
+
+
+Please login with the following credentials:
+Username: admin
+Password: admin123
+
+
+
+Welcome to the MD Library! Please login
+Please enter your user name: admin
+Please enter your password:
+Welcome admin
+
+ Press
+         0 - To search for an author or book
+         1 - To check in books
+         2 - To check out books
+         3 - To sort the books
+         4 - To print the books in order of importance
+         5 - To log out of the program
+         6 - To add a new user(only admins can do this)
+         7 - To print out all books you currently have checked out
+         8 - To print out all the users in the system.
+         help - ***To print the instructions again***
+         q - To close the library(only admins can do this)
+
+
+Logged in as admin
+Enter your choice:
+Please enter a stated command.
+
+
+Logged in as admin
+Enter your choice:
+6
+Please enter the new user's username: marcus
+Do you want this user to be an admin? Y or N
+N
+New user marcus created
+
+Logged in as admin
+Enter your choice:
+Please enter a stated command.
+
+
+Logged in as admin
+Enter your choice:
+6
+Please enter the new user's username: devon
+Do you want this user to be an admin? Y or N
+N
+New user devon created
+
+Logged in as admin
+Enter your choice:
+Please enter a stated command.
+
+
+Logged in as admin
+Enter your choice:
+5
+You have been logged out
+
+Welcome to the MD Library! Please login
+Please enter your user name: marcus
+Welcome marcus
+
+ Press
+         0 - To search for an author or book
+         1 - To check in books
+         2 - To check out books
+         3 - To sort the books
+         4 - To print the books in order of importance
+         5 - To log out of the program
+         6 - To add a new user(only admins can do this)
+         7 - To print out all books you currently have checked out
+         8 - To print out all the users in the system.
+         help - ***To print the instructions again***
+         q - To close the library(only admins can do this)
+
+
+Logged in as marcus
+Enter your choice:
+Please enter a stated command.
+
+
+Logged in as marcus
+Enter your choice:
+
+Logged in as marcus
+Enter your choice:
+2
+What books are you checking Out? (Enter titles only separated by ';')
+xanth series;watchmen
+Checking out: WATCHMEN
+Checking out: XANTH SERIES
+XANTH SERIES has been checked out
+WATCHMEN has been checked out
+
+Logged in as marcus
+Enter your choice:
+7
+You have the following books checked out:
+Watchmen by Moore
+Xanth Series by Anthony
+
+Logged in as marcus
+Enter your choice:
+help
+
+ Press
+         0 - To search for an author or book
+         1 - To check in books
+         2 - To check out books
+         3 - To sort the books
+         4 - To print the books in order of importance
+         5 - To log out of the program
+         6 - To add a new user(only admins can do this)
+         7 - To print out all books you currently have checked out
+         8 - To print out all the users in the system.
+         help - ***To print the instructions again***
+         q - To close the library(only admins can do this)
+
+
+Logged in as marcus
+Enter your choice:
+5
+You have been logged out
+
+Welcome to the MD Library! Please login
+Please enter your user name: devon
+Welcome devon
+
+ Press
+         0 - To search for an author or book
+         1 - To check in books
+         2 - To check out books
+         3 - To sort the books
+         4 - To print the books in order of importance
+         5 - To log out of the program
+         6 - To add a new user(only admins can do this)
+         7 - To print out all books you currently have checked out
+         8 - To print out all the users in the system.
+         help - ***To print the instructions again***
+         q - To close the library(only admins can do this)
+
+
+Logged in as devon
+Enter your choice:
+Please enter a stated command.
+
+
+Logged in as devon
+Enter your choice:
+3
+Do you want to sort by author or title?
+1 - Author
+2 - Title
+2
+*****1*****
+Information on 1984:
+Title: 1984
+Author: ORWELL
+Status: Checked In!
+
+*****2*****
+Information on 20,000 LEAGUES UNDER THE SEA:
+Title: 20,000 LEAGUES UNDER THE SEA
+Author: VERNE
+Status: Checked In!
+
+Information on 2001: A SPACE ODYSSEY:
+Title: 2001: A SPACE ODYSSEY
+Author: CLARKEA
+Status: Checked In!
+
+*****A*****
+Information on ALAS BABYLON:
+Title: ALAS BABYLON
+Author: FRANK
+Status: Checked Out!
+
+Information on AMERICAN GODS:
+Title: AMERICAN GODS
+Author: GAIMAN
+Status: Checked Out!
+
+Information on ANATHEM:
+Title: ANATHEM
+Author: STEPHENSON
+Status: Checked In!
+
+Information on ANIMAL FARM:
+Title: ANIMAL FARM
+Author: ORWELL
+Status: Checked In!
+
+*****B*****
+Information on BELGARIAD:
+Title: BELGARIAD
+Author: EDDINGS
+Status: Checked In!
+
+Information on BOOK OF THE NEW SUN:
+Title: BOOK OF THE NEW SUN
+Author: WOLFE
+Status: Checked In!
+
+Information on BRAVE NEW WORLD:
+Title: BRAVE NEW WORLD
+Author: HUXLEY
+Status: Checked Out!
+
+*****C*****
+Information on CANTICLE FOR LEIBOWITZ:
+Title: CANTICLE FOR LEIBOWITZ
+Author: MILLER
+Status: Checked Out!
+
+Information on CAT'S CRADLE:
+Title: CAT'S CRADLE
+Author: VONNEGUT
+Status: Checked Out!
+
+Information on CAVES OF STEEL:
+Title: CAVES OF STEEL
+Author: ASIMOV
+Status: Checked In!
+
+Information on CHILDHOOD'S END:
+Title: CHILDHOOD'S END
+Author: CLARKEA
+Status: Checked In!
+
+Information on CHRONICLES OF AMBER:
+Title: CHRONICLES OF AMBER
+Author: ZELAZNY
+Status: Checked In!
+
+Information on CHRONICLES OF THOMAS COVENANT THE UNBELIEVER:
+Title: CHRONICLES OF THOMAS COVENANT THE UNBELIEVER
+Author: DONALDSON
+Status: Checked Out!
+
+Information on CLOCKWORK ORANGE:
+Title: CLOCKWORK ORANGE
+Author: BURGESS
+Status: Checked In!
+
+Information on CODEX ALERA SERIES:
+Title: CODEX ALERA SERIES
+Author: BUTCHER
+Status: Checked In!
+
+Information on CONAN THE BARBARIAN SERIES:
+Title: CONAN THE BARBARIAN SERIES
+Author: HOWARD
+Status: Checked In!
+
+Information on CONTACT:
+Title: CONTACT
+Author: SAGAN
+Status: Checked In!
+
+Information on CRYPTONOMICON:
+Title: CRYPTONOMICON
+Author: STEPHENSON
+Status: Checked In!
+
+Information on CRYSTAL CAVE:
+Title: CRYSTAL CAVE
+Author: STEWART
+Status: Checked In!
+
+Information on CULTURE SERIES:
+Title: CULTURE SERIES
+Author: BANKS
+Status: Checked In!
+
+*****D*****
+Information on DARK TOWER SERIES:
+Title: DARK TOWER SERIES
+Author: KING
+Status: Checked In!
+
+Information on DIAMOND AGE:
+Title: DIAMOND AGE
+Author: STEPHENSON
+Status: Checked In!
+
+Information on DISPOSSESSED:
+Title: DISPOSSESSED
+Author: LEGUIN
+Status: Checked In!
+
+Information on DO ANDROIDS DREAM OF ELECTRIC SHEEP?:
+Title: DO ANDROIDS DREAM OF ELECTRIC SHEEP?
+Author: DICK
+Status: Checked Out!
+
+Information on DOOMSDAY BOOK:
+Title: DOOMSDAY BOOK
+Author: WILLIS
+Status: Checked In!
+
+Information on DRAGONFLIGHT:
+Title: DRAGONFLIGHT
+Author: MCCAFFREY
+Status: Checked In!
+
+Information on DUNE CHRONICLES:
+Title: DUNE CHRONICLES
+Author: HERBERT
+Status: Checked In!
+
+*****E*****
+Information on ELRIC SAGA:
+Title: ELRIC SAGA
+Author: MOORCOCK
+Status: Checked Out!
+
+Information on ENDER'S GAME:
+Title: ENDER'S GAME
+Author: CARD
+Status: Checked Out!
+
+Information on EYRE AFFAIR:
+Title: EYRE AFFAIR
+Author: FFORDE
+Status: Checked Out!
+
+*****F*****
+Information on FAHRENHEIT 451:
+Title: FAHRENHEIT 451
+Author: BRADBURY
+Status: Checked Out!
+
+Information on FARSEER TRILOGY:
+Title: FARSEER TRILOGY
+Author: HOBB
+Status: Checked In!
+
+Information on FIRE UPON THE DEEP:
+Title: FIRE UPON THE DEEP
+Author: VINGE
+Status: Checked In!
+
+Information on FLOWERS FOR ALGERNON:
+Title: FLOWERS FOR ALGERNON
+Author: KEYS
+Status: Checked Out!
+
+Information on FOREVER WAR:
+Title: FOREVER WAR
+Author: HALDEMAN
+Status: Checked In!
+
+Information on FOUNDATION TRILOGY:
+Title: FOUNDATION TRILOGY
+Author: ASIMOV
+Status: Checked Out!
+
+Information on FRANKENSTEIN:
+Title: FRANKENSTEIN
+Author: SHELLEY
+Status: Checked In!
+
+*****G*****
+Information on GOING POSTAL:
+Title: GOING POSTAL
+Author: PRATCHETT
+Status: Checked In!
+
+*****H*****
+Information on HANDMAID'S TALE:
+Title: HANDMAID'S TALE
+Author: ATWOOD
+Status: Checked In!
+
+Information on HARD-BOILED WONDERLAND AND THE END OF THE WORLD:
+Title: HARD-BOILED WONDERLAND AND THE END OF THE WORLD
+Author: MURAKAMI
+Status: Checked Out!
+
+Information on HITCHHIKER'S GUIDE TO THE GALAXY:
+Title: HITCHHIKER'S GUIDE TO THE GALAXY
+Author: ADAMSD
+Status: Checked Out!
+
+Information on HUNGER GAMES TRILOGY:
+Title: HUNGER GAMES TRILOGY
+Author: COLLINS
+Status: Checked Out!
+
+Information on HYPERION:
+Title: HYPERION
+Author: SIMMONS
+Status: Checked Out!
+
+*****I*****
+Information on I AM LEGEND:
+Title: I AM LEGEND
+Author: MATHESON
+Status: Checked In!
+
+Information on I, ROBOT:
+Title: I, ROBOT
+Author: ASIMOV
+Status: Checked In!
+
+Information on ILLUSTRATED MAN:
+Title: ILLUSTRATED MAN
+Author: BRADBURY
+Status: Checked Out!
+
+Information on INHERIT THE STARS:
+Title: INHERIT THE STARS
+Author: HOGAN
+Status: Checked Out!
+
+*****J*****
+Information on JONATHAN STRANGE & MR NORRELL:
+Title: JONATHAN STRANGE & MR NORRELL
+Author: CLARKES
+Status: Checked In!
+
+Information on JOURNEY TO THE CENTER OF THE EARTH:
+Title: JOURNEY TO THE CENTER OF THE EARTH
+Author: VERNE
+Status: Checked In!
+
+*****K*****
+Information on KINGKILLER CHRONICLES:
+Title: KINGKILLER CHRONICLES
+Author: ROTHFUSS
+Status: Checked In!
+
+Information on KUSHIEL'S LEGACY SERIES:
+Title: KUSHIEL'S LEGACY SERIES
+Author: CAREY
+Status: Checked In!
+
+*****L*****
+Information on LAST UNICORN:
+Title: LAST UNICORN
+Author: BEAGLE
+Status: Checked In!
+
+Information on LEFT HAND OF DARKNESS:
+Title: LEFT HAND OF DARKNESS
+Author: LEGUIN
+Status: Checked In!
+
+Information on LEGEND OF DRIZZT SERIES:
+Title: LEGEND OF DRIZZT SERIES
+Author: SALVATORE
+Status: Checked In!
+
+Information on LORD OF THE RINGS TRILOGY:
+Title: LORD OF THE RINGS TRILOGY
+Author: TOLKIEN
+Status: Checked Out!
+
+Information on LUCIFER'S HAMMER:
+Title: LUCIFER'S HAMMER
+Author: NIVEN&POURNELLE
+Status: Checked Out!
+
+*****M*****
+Information on MALAZAN BOOK OF THE FALLEN SERIES:
+Title: MALAZAN BOOK OF THE FALLEN SERIES
+Author: ERIKSON
+Status: Checked In!
+
+Information on MARS TRILOGY:
+Title: MARS TRILOGY
+Author: ROBINSON
+Status: Checked Out!
+
+Information on MARTIAN CHRONICLES:
+Title: MARTIAN CHRONICLES
+Author: BRADBURY
+Status: Checked Out!
+
+Information on MISTBORN SERIES:
+Title: MISTBORN SERIES
+Author: SANDERSON
+Status: Checked In!
+
+Information on MISTS OF AVALON:
+Title: MISTS OF AVALON
+Author: BRADLEY
+Status: Checked In!
+
+Information on MOON IS A HARSH MISTRESS:
+Title: MOON IS A HARSH MISTRESS
+Author: HEINLEIN
+Status: Checked Out!
+
+Information on MOTE IN GOD'S EYE:
+Title: MOTE IN GOD'S EYE
+Author: NIVEN&POURNELLE
+Status: Checked In!
+
+*****N*****
+Information on NEUROMANCER:
+Title: NEUROMANCER
+Author: GIBSON
+Status: Checked In!
+
+Information on NEVERWHERE:
+Title: NEVERWHERE
+Author: GAIMAN
+Status: Checked Out!
+
+*****O*****
+Information on OLD MAN'S WAR:
+Title: OLD MAN'S WAR
+Author: SCALZI
+Status: Checked Out!
+
+Information on ONCE AND FUTURE KING:
+Title: ONCE AND FUTURE KING
+Author: WHITE
+Status: Checked Out!
+
+Information on OUTLANDER SERIES:
+Title: OUTLANDER SERIES
+Author: GABALDAN
+Status: Checked In!
+
+*****P*****
+Information on PASTWATCH:
+Title: PASTWATCH
+Author: CARD
+Status: Checked Out!
+
+Information on PERDIDO STREET STATION:
+Title: PERDIDO STREET STATION
+Author: MIEVILLE
+Status: Checked In!
+
+Information on PRINCESS BRIDE:
+Title: PRINCESS BRIDE
+Author: GOLDMAN
+Status: Checked Out!
+
+*****R*****
+Information on READY PLAYER ONE:
+Title: READY PLAYER ONE
+Author: CLINE
+Status: Checked Out!
+
+Information on RENDEZVOUS WITH RAMA:
+Title: RENDEZVOUS WITH RAMA
+Author: CLARKEA
+Status: Checked In!
+
+Information on RIFTWAR SAGA:
+Title: RIFTWAR SAGA
+Author: FEIST
+Status: Checked In!
+
+Information on RINGWORLD:
+Title: RINGWORLD
+Author: NIVEN
+Status: Checked In!
+
+*****S*****
+Information on SANDMAN:
+Title: SANDMAN
+Author: GAIMAN
+Status: Checked Out!
+
+Information on SHANNARA TRILOGY:
+Title: SHANNARA TRILOGY
+Author: BROOKS
+Status: Checked In!
+
+Information on SILMARILLION:
+Title: SILMARILLION
+Author: TOLKIEN
+Status: Checked In!
+
+Information on SLAUGHTERHOUSE-FIVE:
+Title: SLAUGHTERHOUSE-FIVE
+Author: VONNEGUT
+Status: Checked Out!
+
+Information on SMALL GODS:
+Title: SMALL GODS
+Author: PRATCHETT
+Status: Checked In!
+
+Information on SNOW CRASH:
+Title: SNOW CRASH
+Author: STEPHENSON
+Status: Checked In!
+
+Information on SOMETHING WICKED THIS WAY COMES:
+Title: SOMETHING WICKED THIS WAY COMES
+Author: BRADBURY
+Status: Checked Out!
+
+Information on SONG OF ICE AND FIRE SERIES:
+Title: SONG OF ICE AND FIRE SERIES
+Author: MARTIN
+Status: Checked In!
+
+Information on SPACE TRILOGY:
+Title: SPACE TRILOGY
+Author: LEWIS
+Status: Checked In!
+
+Information on SPARROW:
+Title: SPARROW
+Author: RUSSELL
+Status: Checked Out!
+
+Information on STARDUST:
+Title: STARDUST
+Author: GAIMAN
+Status: Checked In!
+
+Information on STARSHIP TROOPERS:
+Title: STARSHIP TROOPERS
+Author: HEINLEIN
+Status: Checked In!
+
+Information on STRANGER IN A STRANGE LAND:
+Title: STRANGER IN A STRANGE LAND
+Author: HEINLEIN
+Status: Checked In!
+
+Information on SUNSHINE:
+Title: SUNSHINE
+Author: MCKINLEY
+Status: Checked In!
+
+Information on SWORD OF TRUTH:
+Title: SWORD OF TRUTH
+Author: GOODKIND
+Status: Checked In!
+
+*****T*****
+Information on THE ROAD:
+Title: THE ROAD
+Author: MCCARTHY
+Status: Checked In!
+
+Information on THE STAND:
+Title: THE STAND
+Author: KING
+Status: Checked Out!
+
+Information on THRAWN TRILOGY:
+Title: THRAWN TRILOGY
+Author: ZAHN
+Status: Checked In!
+
+Information on TIME MACHINE:
+Title: TIME MACHINE
+Author: WELLS
+Status: Checked Out!
+
+Information on TIME TRAVELER'S WIFE:
+Title: TIME TRAVELER'S WIFE
+Author: NIFFENEGGER
+Status: Checked Out!
+
+Information on TRIPODS SERIES:
+Title: TRIPODS SERIES
+Author: CHRISTOPHER
+Status: Checked Out!
+
+*****V*****
+Information on VORKOSIGAN SAGA:
+Title: VORKOSIGAN SAGA
+Author: BUJOLD
+Status: Checked In!
+
+*****W*****
+Information on WAR OF THE WORLDS:
+Title: WAR OF THE WORLDS
+Author: WELLS
+Status: Checked Out!
+
+Information on WATCHMEN:
+Title: WATCHMEN
+Author: MOORE
+Status: Checked Out!
+
+Information on WATERSHIP DOWN:
+Title: WATERSHIP DOWN
+Author: ADAMSR
+Status: Checked Out!
+
+Information on WAY OF KINGS:
+Title: WAY OF KINGS
+Author: SANDERSON
+Status: Checked In!
+
+Information on WHEEL OF TIME SERIES:
+Title: WHEEL OF TIME SERIES
+Author: JORDAN
+Status: Checked In!
+
+Information on WICKED:
+Title: WICKED
+Author: MAGUIRE
+Status: Checked Out!
+
+Information on WORLD WAR Z:
+Title: WORLD WAR Z
+Author: BROOKS
+Status: Checked In!
+
+*****X*****
+Information on XANTH SERIES:
+Title: XANTH SERIES
+Author: ANTHONY
+Status: Checked Out!
+
+
+Logged in as devon
+Enter your choice:
+Please enter a stated command.
+
+
+Logged in as devon
+Enter your choice:
+2
+What books are you checking Out? (Enter titles only separated by ';')
+world war z;1984
+Checking out: 1984
+Checking out: WORLD WAR Z
+WORLD WAR Z has been checked out
+1984 has been checked out
+
+Logged in as devon
+Enter your choice:
+7
+You have the following books checked out:
+1984 by Orwell
+World War Z by Brooks
+
+Logged in as devon
+Enter your choice:
+help
+
+ Press
+         0 - To search for an author or book
+         1 - To check in books
+         2 - To check out books
+         3 - To sort the books
+         4 - To print the books in order of importance
+         5 - To log out of the program
+         6 - To add a new user(only admins can do this)
+         7 - To print out all books you currently have checked out
+         8 - To print out all the users in the system.
+         help - ***To print the instructions again***
+         q - To close the library(only admins can do this)
+
+
+Logged in as devon
+Enter your choice:
+1
+What books are you checking in? (Enter titles only separated by ';' or enter '*' to check in all books)
+watchmen
+Checking in: WATCHMEN
+The following books were not checked in. Please see the reasons below. All others were checked in
+You do not currently have the book Watchmen checked out
+
+Logged in as devon
+Enter your choice:
+1
+What books are you checking in? (Enter titles only separated by ';' or enter '*' to check in all books)
+*
+Checking in: WORLD WAR Z
+Checking in: 1984
+All books checked in
+
+Logged in as devon
+Enter your choice:
+7
+You have no books checked out.
+
+Logged in as devon
+Enter your choice:
+5
+You have been logged out
+
+Welcome to the MD Library! Please login
+Please enter your user name: marcus
+Welcome marcus
+
+ Press
+         0 - To search for an author or book
+         1 - To check in books
+         2 - To check out books
+         3 - To sort the books
+         4 - To print the books in order of importance
+         5 - To log out of the program
+         6 - To add a new user(only admins can do this)
+         7 - To print out all books you currently have checked out
+         8 - To print out all the users in the system.
+         help - ***To print the instructions again***
+         q - To close the library(only admins can do this)
+
+
+Logged in as marcus
+Enter your choice:
+Please enter a stated command.
+
+
+Logged in as marcus
+Enter your choice:
+7
+You have the following books checked out:
+Watchmen by Moore
+Xanth Series by Anthony
+
+Logged in as marcus
+Enter your choice:
+1
+What books are you checking in? (Enter titles only separated by ';' or enter '*' to check in all books)
+*
+Checking in: XANTH SERIES
+Checking in: WATCHMEN
+All books checked in
+
+Logged in as marcus
+Enter your choice:
+7
+You have no books checked out.
+
+Logged in as marcus
+Enter your choice:
+help
+
+ Press
+         0 - To search for an author or book
+         1 - To check in books
+         2 - To check out books
+         3 - To sort the books
+         4 - To print the books in order of importance
+         5 - To log out of the program
+         6 - To add a new user(only admins can do this)
+         7 - To print out all books you currently have checked out
+         8 - To print out all the users in the system.
+         help - ***To print the instructions again***
+         q - To close the library(only admins can do this)
+
+
+Logged in as marcus
+Enter your choice:
+0
+Do you want to search by author or title?
+1 - Author
+2 - Title
+2
+What title would you like to search for?
+1984
+Information on 1984:
+Title: 1984
+Author: ORWELL
+Status: Checked In!
+
+
+Logged in as marcus
+Enter your choice:
+0
+Do you want to search by author or title?
+1 - Author
+2 - Title
+1
+What author would you like to search for?
+ORWELL
+Information on books by ORWELL:
+Title: ANIMAL FARM
+Author: ORWELL
+Status: Checked In!
+
+Title: 1984
+Author: ORWELL
+Status: Checked In!
+
+
+Logged in as marcus
+Enter your choice:
+4
+Books By Their Importance:
+******************************
+Small Gods
+Dune Chronicles
+I, Robot
+Dark Tower Series
+20,000 Leagues Under The Sea
+World War Z
+Journey To The Center Of The Earth
+Thrawn Trilogy
+Rendezvous With Rama
+Farseer Trilogy
+Jonathan Strange & Mr Norrell
+Contact
+Frankenstein
+Animal Farm
+Watchmen
+Song Of Ice And Fire Series
+Wheel Of Time Series
+Stranger In A Strange Land
+Handmaid's Tale
+Starship Troopers
+Clockwork Orange
+Ringworld
+Silmarillion
+Stardust
+Last Unicorn
+Going Postal
+I Am Legend
+Culture Series
+Book Of The New Sun
+Caves Of Steel
+Doomsday Book
+Xanth Series
+Fire Upon The Deep
+Codex Alera Series
+Malazan Book Of The Fallen Series
+Diamond Age
+Conan The Barbarian Series
+Mote In God's Eye
+Forever War
+Belgariad
+Snow Crash
+Dragonflight
+2001: A Space Odyssey
+1984
+Neuromancer
+Kingkiller Chronicles
+Chronicles Of Amber
+Left Hand Of Darkness
+Mists Of Avalon
+Mistborn Series
+Childhood's End
+Vorkosigan Saga
+Sword Of Truth
+The Road
+Riftwar Saga
+Shannara Trilogy
+Way Of Kings
+Legend Of Drizzt Series
+Kushiel's Legacy Series
+Dispossessed
+Anathem
+Crystal Cave
+Outlander Series
+Sunshine
+Perdido Street Station
+Space Trilogy
+Cryptonomicon
+
+Logged in as marcus
+Enter your choice:
+8
+The following users exits:
+***************************
+devon
+admin
+marcus
+
+Logged in as marcus
+Enter your choice:
+5
+You have been logged out
+
+Welcome to the MD Library! Please login
+Please enter your user name: admin
+Please enter your password:
+Welcome admin
+
+ Press
+         0 - To search for an author or book
+         1 - To check in books
+         2 - To check out books
+         3 - To sort the books
+         4 - To print the books in order of importance
+         5 - To log out of the program
+         6 - To add a new user(only admins can do this)
+         7 - To print out all books you currently have checked out
+         8 - To print out all the users in the system.
+         help - ***To print the instructions again***
+         q - To close the library(only admins can do this)
+
+
+Logged in as admin
+Enter your choice:
+Please enter a stated command.
+
+
+Logged in as admin
+Enter your choice:
+q
+***The library has closed for the day***
